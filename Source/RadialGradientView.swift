@@ -44,7 +44,7 @@ internal class RadialGradientLayer: CALayer {
         let colors: CFArray = [innerColor.CGColor, outerColor.CGColor]
         let gradient = CGGradientCreateWithColors(colorSpace, colors, [0, 1])
         let radius = min(self.bounds.width, self.bounds.height)
-        CGContextDrawRadialGradient(context, gradient, point, 0, point, radius, .DrawsAfterEndLocation)
+        CGContextDrawRadialGradient(context, gradient!, point, 0, point, radius, .DrawsAfterEndLocation)
     }
     
 }
@@ -59,8 +59,8 @@ public class RadialGradientView: UIView {
             layer.innerColor = self.gradient?.startColor
             layer.outerColor = self.gradient?.endColor
 
-            let startAlpha = CGColorGetAlpha(self.gradient?.startColor?.CGColor)
-            let endAlpha = CGColorGetAlpha(self.gradient?.endColor?.CGColor)
+            let startAlpha = CGColorGetAlpha((self.gradient?.startColor?.CGColor)!)
+            let endAlpha = CGColorGetAlpha((self.gradient?.endColor?.CGColor)!)
             self.opaque = startAlpha == 1 && endAlpha == 1
         }
     }
